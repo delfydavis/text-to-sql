@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "question": "How many customers are there?",
+    "expected_intent": "count_customers"
+  },
+  {
+    "id": 2,
+    "question": "Show me the top 5 customers by revenue.",
+    "expected_intent": "top_customers_by_revenue"
+  },
+  {
+    "id": 3,
+    "question": "What was the total revenue last month?",
+    "expected_intent": "monthly_revenue"
+  },
+  {
+    "id": 4,
+    "question": "Which product generated the most revenue?",
+    "expected_intent": "top_product_by_revenue"
+  },
+  {
+    "id": 5,
+    "question": "Show me the best customers from last month.",
+    "expected_intent": "ambiguous_best_customer"
+  },
+  {
+    "id": 6,
+    "question": "Which region had the highest sales?",
+    "expected_intent": "top_region_by_revenue"
+  },
+  {
+    "id": 7,
+    "question": "How many orders were completed last month?",
+    "expected_intent": "completed_orders_last_month"
+  },
+  {
+    "id": 8,
+    "question": "What are our best selling products?",
+    "expected_intent": "ambiguous_best_selling_products"
+  },
+  {
+    "id": 9,
+    "question": "Show customers who placed more than 5 orders.",
+    "expected_intent": "customers_by_order_count"
+  },
+  {
+    "id": 10,
+    "question": "What is the average order value by region?",
+    "expected_intent": "average_order_value_by_region"
+  }
+]

@@ -1,0 +1,46 @@
+[
+  {
+    "id": 1,
+    "expected_sql": "SELECT COUNT(*) FROM customers;"
+  },
+  {
+    "id": 2,
+    "expected_sql": "SELECT c.name, SUM(oi.quantity * oi.unit_price) AS revenue FROM customers c JOIN orders o ON o.customer_id = c.id JOIN order_items oi ON oi.order_id = o.id WHERE o.status = 'completed' GROUP BY c.id, c.name ORDER BY revenue DESC LIMIT 5;"
+  },
+  {
+    "id": 3,
+    "expected_sql": "SELECT SUM(oi.quantity * oi.unit_price) AS total_revenue FROM orders o JOIN order_items oi ON oi.order_id = o.id WHERE o.status = 'completed' AND o.order_date >= DATE_TRUNC('month', CURRENT_DATE - INTERVAL '1 month') AND o.order_date < DATE_TRUNC('month', CURRENT_DATE);"
+  },
+  {
+    "id": 4,
+    "expected_sql": "SELECT p.name, SUM(oi.quantity * oi.unit_price) AS revenue FROM products p JOIN order_items oi ON oi.product_id = p.id JOIN orders o ON o.id = oi.order_id WHERE o.status = 'completed' GROUP BY p.id, p.name ORDER BY revenue DESC LIMIT 1;"
+  },
+  {
+    "id": 5,
+    "expected_sql": null,
+    "clarification_required": true,
+    "clarification": "How should I define 'best customers' — by total revenue, number of orders, or average order value?"
+  },
+  {
+    "id": 6,
+    "expected_sql": "SELECT c.region, SUM(oi.quantity * oi.unit_price) AS revenue FROM customers c JOIN orders o ON o.customer_id = c.id JOIN order_items oi ON oi.order_id = o.id WHERE o.status = 'completed' GROUP BY c.region ORDER BY revenue DESC LIMIT 1;"
+  },
+  {
+    "id": 7,
+    "expected_sql": "SELECT COUNT(*) FROM orders WHERE status = 'completed' AND order_date >= DATE_TRUNC('month', CURRENT_DATE - INTERVAL '1 month') AND order_date < DATE_TRUNC('month', CURRENT_DATE);"
+  },
+  {
+    "id": 8,
+    "expected_sql": null,
+    "clarification_required": true,
+    "clarification": "How should I define 'best selling' — highest revenue, highest quantity sold, or most orders?"
+  },
+  {
+    "id": 9,
+    "expected_sql": "SELECT c.name, COUNT(o.id) AS order_count FROM customers c JOIN orders o ON o.customer_id = c.id GROUP BY c.id, c.name HAVING COUNT(o.id) > 5 ORDER BY order_count DESC;"
+  },
+  {
+    "id": 10,
+    "expected_sql": "SELECT c.region, AVG(order_totals.order_value) AS average_order_value FROM customers c JOIN orders o ON o.customer_id = c.id JOIN (SELECT order_id, SUM(quantity * unit_price) AS order_value FROM order_items GROUP BY order_id) order_totals ON order_totals.order_id = o.id WHERE o.status = 'completed' GROUP BY c.region ORDER BY average_order_value DESC;"
+  }
+]
