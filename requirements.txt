@@ -1,0 +1,6 @@
+google-genai
+psycopg[binary]
+pydantic
+python-dotenv
+sqlglot
+pytest

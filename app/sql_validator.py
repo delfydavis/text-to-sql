@@ -24,11 +24,15 @@ def validate_sql(sql: str) -> bool:
     return True
 if __name__ == "__main__":
     test_queries = [
-        "SELECT * FROM customers;",
-        "DELETE FROM customers;",
-        "DROP TABLE customers;",
-        "SELECT * FROM customers; SELECT * FROM orders;",
-    ]
+    "SELECT * FROM customers;",
+    "DELETE FROM customers;",
+    "DROP TABLE customers;",
+    "SELECT * FROM customers; SELECT * FROM orders;",
+    "UPDATE customers SET name = 'test';",
+    "INSERT INTO customers (name) VALUES ('test');",
+    "ALTER TABLE customers ADD COLUMN test TEXT;",
+]
+    
 
     for query in test_queries:
         result = validate_sql(query)
