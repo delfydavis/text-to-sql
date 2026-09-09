@@ -1,16 +1,16 @@
 from app.engine import (
     load_schema,
     generate_sql,
-    execute_sql,
+    validate_and_execute,
     display_results,
 )
-from app.sql_validator import validate_sql
 
 
 def main():
     schema = load_schema()
 
-    question = input("Ask your question: ")
+    original_question = input("Ask your question: ")
+    question = original_question
 
     decision = generate_sql(question, schema)
 
@@ -31,7 +31,7 @@ def main():
 
         question = f"""
 Original question:
-{question}
+{original_question}
 
 User's clarification:
 {answer}
@@ -52,15 +52,15 @@ User's clarification:
     print(decision.sql)
 
     # Validate and execute
-    if validate_sql(decision.sql):
-        print("\nSQL validation: PASSED")
+    result = validate_and_execute(decision.sql)
 
-        result = execute_sql(decision.sql)
-        display_results(result)
-
-    else:
+    if result is None:
         print("\nSQL validation: FAILED")
         print("Query was not executed.")
+        return
+
+    print("\nSQL validation: PASSED")
+    display_results(result)
 
 
 if __name__ == "__main__":

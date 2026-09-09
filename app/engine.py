@@ -1,7 +1,8 @@
 import os
 import time
-import psycopg
+from pathlib import Path
 
+import psycopg
 from dotenv import load_dotenv
 from google import genai
 from google.genai import errors
@@ -9,6 +10,7 @@ from google.genai import types
 from pydantic import BaseModel
 
 from .sql_validator import validate_sql
+
 
 load_dotenv()
 
@@ -74,7 +76,9 @@ def display_results(result):
 
 
 def load_schema():
-    with open("app/schema.sql", "r", encoding="utf-8") as file:
+    schema_path = Path(__file__).resolve().parent / "schema.sql"
+
+    with open(schema_path, "r", encoding="utf-8") as file:
         return file.read()
 
 
@@ -139,6 +143,7 @@ BUSINESS RULES:
 - "Revenue" and "sales" refer to completed-order revenue
   unless the user explicitly specifies otherwise.
 """
+
     start_time = time.perf_counter()
 
     try:
@@ -155,7 +160,6 @@ BUSINESS RULES:
         print("\nGemini API error:")
         print(f"Status code: {e.code}")
         print(f"Message: {e.message}")
-
         return None
 
     elapsed = time.perf_counter() - start_time

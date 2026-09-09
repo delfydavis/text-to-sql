@@ -1,0 +1,26 @@
+[
+  {
+    "id": 4,
+    "question": "Which product generated the most revenue?",
+    "status": "PASS",
+    "needs_clarification": false,
+    "generated_sql": "SELECT p.name FROM products p JOIN order_items oi ON p.id = oi.product_id JOIN orders o ON o.id = oi.order_id WHERE o.status = 'completed' GROUP BY p.id, p.name ORDER BY SUM(oi.quantity * oi.unit_price) DESC LIMIT 1;",
+    "clarification_question": ""
+  },
+  {
+    "id": 6,
+    "question": "Which region had the highest sales?",
+    "status": "PASS",
+    "needs_clarification": false,
+    "generated_sql": "SELECT c.region FROM customers c JOIN orders o ON c.id = o.customer_id JOIN order_items oi ON o.id = oi.order_id WHERE o.status = 'completed' GROUP BY c.region ORDER BY SUM(oi.quantity * oi.unit_price) DESC LIMIT 1",
+    "clarification_question": ""
+  },
+  {
+    "id": 9,
+    "question": "Show customers who placed more than 5 orders.",
+    "status": "PASS",
+    "needs_clarification": false,
+    "generated_sql": "SELECT c.id, c.name FROM customers c JOIN orders o ON c.id = o.customer_id GROUP BY c.id, c.name HAVING COUNT(o.id) > 5",
+    "clarification_question": ""
+  }
+]

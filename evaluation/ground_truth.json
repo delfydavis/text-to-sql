@@ -13,7 +13,12 @@
   },
   {
     "id": 4,
-    "expected_sql": "SELECT p.name, SUM(oi.quantity * oi.unit_price) AS revenue FROM products p JOIN order_items oi ON oi.product_id = p.id JOIN orders o ON o.id = oi.order_id WHERE o.status = 'completed' GROUP BY p.id, p.name ORDER BY revenue DESC LIMIT 1;"
+    "expected_sql": "SELECT p.name, SUM(oi.quantity * oi.unit_price) AS revenue FROM products p JOIN order_items oi ON oi.product_id = p.id JOIN orders o ON o.id = oi.order_id WHERE o.status = 'completed' GROUP BY p.id, p.name ORDER BY revenue DESC LIMIT 1;",
+    "expected_answer": {
+      "type": "single_value",
+      "column": "name",
+      "value": "Laptop Pro"
+    }
   },
   {
     "id": 5,
@@ -23,7 +28,12 @@
   },
   {
     "id": 6,
-    "expected_sql": "SELECT c.region, SUM(oi.quantity * oi.unit_price) AS revenue FROM customers c JOIN orders o ON o.customer_id = c.id JOIN order_items oi ON oi.order_id = o.id WHERE o.status = 'completed' GROUP BY c.region ORDER BY revenue DESC LIMIT 1;"
+    "expected_sql": "SELECT c.region, SUM(oi.quantity * oi.unit_price) AS revenue FROM customers c JOIN orders o ON o.customer_id = c.id JOIN order_items oi ON oi.order_id = o.id WHERE o.status = 'completed' GROUP BY c.region ORDER BY revenue DESC LIMIT 1;",
+    "expected_answer": {
+      "type": "single_value",
+      "column": "region",
+      "value": "North"
+    }
   },
   {
     "id": 7,
@@ -37,7 +47,33 @@
   },
   {
     "id": 9,
-    "expected_sql": "SELECT c.name, COUNT(o.id) AS order_count FROM customers c JOIN orders o ON o.customer_id = c.id GROUP BY c.id, c.name HAVING COUNT(o.id) > 5 ORDER BY order_count DESC;"
+    "expected_sql": "SELECT c.name, COUNT(o.id) AS order_count FROM customers c JOIN orders o ON o.customer_id = c.id GROUP BY c.id, c.name HAVING COUNT(o.id) > 5 ORDER BY order_count DESC;",
+    "expected_answer": {
+      "type": "value_set",
+      "column": "name",
+      "values": [
+        "Sophia Taylor",
+        "Aisha Khan",
+        "Ananya Rao",
+        "Olivia Smith",
+        "Emily Johnson",
+        "Sarah Wilson",
+        "Adam Clark",
+        "Michael Brown",
+        "Ryan Lewis",
+        "James Wilson",
+        "Emma Davis",
+        "David Miller",
+        "Arun Mathew",
+        "Rahul Menon",
+        "Meera Thomas",
+        "Priya Nair",
+        "Noah Martin",
+        "Neha Patel",
+        "Daniel Thomas",
+        "Vikram Shah"
+      ]
+    }
   },
   {
     "id": 10,
